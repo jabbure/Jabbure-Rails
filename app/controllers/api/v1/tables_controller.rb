@@ -4,7 +4,29 @@ class Api::V1::TablesController < ApplicationController
   # GET /tables
   # GET /tables.json
   def index
-    @tables = Table.all
+    #curl --basic --header "Content-Type:application/jsonalhost:3000/api/v1/tables -H 'Authorization: Token id="id", secret="sec"' -X GET
+    
+    @connection = ActiveRecord::Base.establish_connection(
+      :adapter => "mysql2",
+      :host => "localhost",
+      :database => "jeff_development",
+      :username => "root",
+      :password => "root"
+    )
+    make_string = ""
+    params[:table_name] = "lists"
+    a = {"field1" => "text","field2" => "text"}
+    a.each_with_index do |name,index|
+      if ((a.length-1) == (index))
+        make_string = make_string+"#{name[0]} #{name[1]}"
+      else
+        make_string = make_string+"#{name[0]} #{name[1]},"
+      end
+    end
+    sql = "CREATE TABLE IF NOT EXISTS "+params[:table_name]+" (#{make_string})"
+    @result = @connection.connection.execute(sql);
+
+    render :json => {status: "true", message: "Table created"}
   end
 
   # GET /tables/1
