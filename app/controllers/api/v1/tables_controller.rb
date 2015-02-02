@@ -1,4 +1,4 @@
-class Api::V1::TableController < ApplicationController
+class Api::V1::TablesController < ApplicationController
   before_action :set_table, only: [:show, :edit, :update, :destroy]
 
   # GET /tables

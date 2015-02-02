@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get 'test_connectivity', to: 'home#test_connectivity'
   
-  namespace :api do
+  namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :tables
     end
