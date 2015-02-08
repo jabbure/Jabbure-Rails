@@ -6,14 +6,7 @@ Rails.application.routes.draw do
   
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      resources :tables do
-        collection do
-          get 'table_using_name'
-          put 'update_table'
-          post 'create_table'
-          delete 'delete_table'
-        end
-      end
+      resources :tables
     end
   end 
   
